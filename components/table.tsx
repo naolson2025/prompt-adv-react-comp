@@ -1,7 +1,8 @@
-import { getDbConnection } from "../db/db";
+import { getProducts } from "../db/queries";
 
 export const Table = async () => {
-  const db = await getDbConnection();
+  const products = await getProducts();
+  console.log(products);
 
   return (
     <div>Hello</div>
