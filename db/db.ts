@@ -18,6 +18,7 @@ export async function getDbConnection(): Promise<DatabaseType> {
   if (!db) {
     try {
       db = new Database(dbPath);
+      db.pragma('journal_mode = WAL');
 
       // Check if tables exist. If not create them.
       db.exec(`
@@ -40,7 +41,7 @@ export async function getDbConnection(): Promise<DatabaseType> {
         const insert = db.prepare(
           'INSERT INTO Products (name, department, isbn, description, price) VALUES (@name, @department, @isbn, @description, @price)'
         );
-        for (let i = 0; i < 100; i++) {
+        for (let i = 0; i < 1_000_000; i++) {
           const row = makeRow();
           insert.run(row);
         }
