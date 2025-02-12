@@ -4,8 +4,8 @@ import { Navbar } from '../components/navbar';
 import { Footer } from '../components/footer';
 
 export const metadata: Metadata = {
-  title: 'Virtual Table',
-  description: 'Challenging Gemini to make a virtual table',
+  title: 'Advanced Table',
+  description: 'Challenging Gemini to make an advanced table',
 };
 
 export default function RootLayout({
