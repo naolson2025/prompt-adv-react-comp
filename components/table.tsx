@@ -55,41 +55,40 @@ export const Table: React.FC = () => {
   }
 
   return (
-    <div className="h-full w-full">
+    <div
+      ref={tableContainerRef} // Assign the ref to the div
+      className="w-full overflow-auto border border-gray-300 relative"
+      style={{ height: 'calc(100vh - 400px)'}}
+    >
       <div
-        ref={tableContainerRef} // Assign the ref to the div
-        className="h-full w-full overflow-auto border border-gray-300 relative max-h-96"
+        style={{
+          height: rowVirtualizer.getTotalSize(),
+          width: '100%',
+        }}
       >
-        <div
-          style={{
-            height: rowVirtualizer.getTotalSize(),
-            width: '100%',
-          }}
-        >
-          {rowItems.map((row) => (
-            <div
-              key={row.key}
-              style={{
-                position: 'absolute',
-                top: row.start + 'px',
-                left: 0,
-                width: '100%',
-                height: row.size + 'px',
-                padding: '8px', // Add padding for better readability
-                borderBottom: '1px solid #eee', // Optional row separator
-                backgroundColor: 'white', // Optional background color
-              }}
-              className="flex items-center" // Tailwind Flexbox for alignment
-            >
-              <span className="w-1/4">{products[row.index].name}</span>{' '}
-              {/* Adjust widths as needed */}
-              <span className="w-1/4">{products[row.index].department}</span>
-              <span className="w-1/4">{products[row.index].isbn}</span>
-              <span className="w-1/4">{products[row.index].price}</span>
-              {/* Add other columns as needed */}
-            </div>
-          ))}
-        </div>
+        {rowItems.map((row) => (
+          <div
+            key={row.key}
+            style={{
+              position: 'absolute',
+              top: row.start + 'px',
+              left: 0,
+              width: '100%',
+              height: row.size + 'px',
+              padding: '8px', // Add padding for better readability
+              borderBottom: '1px solid #eee', // Optional row separator
+              backgroundColor: 'white', // Optional background color
+            }}
+            className="flex items-center" // Tailwind Flexbox for alignment
+          >
+            <span className="w-1/4">{products[row.index].name}</span>{' '}
+            {/* Adjust widths as needed */}
+            <span className="w-1/4">{products[row.index].department}</span>
+            <span className="w-1/4">{products[row.index].isbn}</span>
+            <span className="w-1/4">{products[row.index].price}</span>
+            {/* Add other columns as needed */}
+          </div>
+        ))}
       </div>
     </div>
   );
