@@ -9,7 +9,7 @@ export type Product = {
   price: string;
 };
 
-export const getProducts = async (limit = 1000): Promise<Product[]> => {
+export const getProducts = async (limit = 1_000): Promise<Product[]> => {
   const db = await getDbConnection();
   const products = db.prepare('SELECT * FROM Products LIMIT ?').all(limit);
   return products as Product[];

@@ -58,7 +58,7 @@ export const Table: React.FC = () => {
     <div
       ref={tableContainerRef} // Assign the ref to the div
       className="w-full overflow-auto border border-gray-300 relative"
-      style={{ height: 'calc(100vh - 400px)'}}
+      style={{ height: 'calc(100vh - 400px)' }}
     >
       <div
         style={{
@@ -70,22 +70,16 @@ export const Table: React.FC = () => {
           <div
             key={row.key}
             style={{
-              position: 'absolute',
               top: row.start + 'px',
-              left: 0,
-              width: '100%',
-              height: row.size + 'px',
-              padding: '8px', // Add padding for better readability
-              borderBottom: '1px solid #eee', // Optional row separator
-              backgroundColor: 'white', // Optional background color
             }}
-            className="flex items-center" // Tailwind Flexbox for alignment
+            className={`flex items-center w-full absolute p-4 border-b bg-white left-0`}
           >
-            <span className="w-1/4">{products[row.index].name}</span>{' '}
+            <span className="w-1/12">{products[row.index].id}</span>
+            <span className="w-4/12">{products[row.index].name}</span>
             {/* Adjust widths as needed */}
-            <span className="w-1/4">{products[row.index].department}</span>
-            <span className="w-1/4">{products[row.index].isbn}</span>
-            <span className="w-1/4">{products[row.index].price}</span>
+            <span className="w-2/12">{products[row.index].department}</span>
+            <span className="w-4/12">{products[row.index].isbn}</span>
+            <span className="w-1/12">{products[row.index].price}</span>
             {/* Add other columns as needed */}
           </div>
         ))}
