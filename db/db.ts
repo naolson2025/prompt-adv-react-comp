@@ -2,15 +2,15 @@ import Database, { Database as DatabaseType } from 'better-sqlite3';
 import path from 'path';
 import { faker } from '@faker-js/faker';
 
-const dbPath = path.join(process.cwd(), 'products.sqlite'); // Store in project root
+const dbPath = path.join(process.cwd(), 'transactions.sqlite'); // Store in project root
 
 const makeRow = () => ({
-  name: faker.commerce.productName(),
-  department: faker.commerce.department(),
-  isbn: faker.commerce.isbn(),
+  amount: faker.finance.amount(),
+  category: faker.commerce.department(),
   description: faker.commerce.productDescription(),
-  price: faker.commerce.price(),
-});
+  merchant: faker.company.name(),
+  date: faker.date.past({ years: 2 }).toISOString(),
+})
 
 let db: DatabaseType;
 
@@ -22,26 +22,26 @@ export async function getDbConnection(): Promise<DatabaseType> {
 
       // Check if tables exist. If not create them.
       db.exec(`
-        CREATE TABLE IF NOT EXISTS Products (
+        CREATE TABLE IF NOT EXISTS Transactions (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT NOT NULL,
-            department TEXT NOT NULL,
-            isbn TEXT NOT NULL,
+            amount TEXT NOT NULL,
+            category TEXT NOT NULL,
             description TEXT NOT NULL,
-            price TEXT NOT NULL
+            merchant TEXT NOT NULL,
+            date TEXT NOT NULL
         );
       `);
 
-      // check if products exist. If not, insert some
-      const products = db
-        .prepare('SELECT COUNT(*) as count FROM Products')
+      // check if transactions exist. If not, insert some
+      const transactions = db
+        .prepare('SELECT COUNT(*) as count FROM Transactions')
         .get() as { count: number };
 
-      if (products.count === 0) {
+      if (transactions.count === 0) {
         const insert = db.prepare(
-          'INSERT INTO Products (name, department, isbn, description, price) VALUES (@name, @department, @isbn, @description, @price)'
+          'INSERT INTO Transactions (amount, category, description, merchant, date) VALUES (@amount, @category, @description, @merchant, @date)',
         );
-        for (let i = 0; i < 1_000_000; i++) {
+        for (let i = 0; i < 5_000; i++) {
           const row = makeRow();
           insert.run(row);
         }

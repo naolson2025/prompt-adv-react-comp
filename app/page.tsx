@@ -1,11 +1,14 @@
 
 import { Container } from '../components/container';
-import { Table } from '../components/table';
+import { getTransactions } from '../db/queries';
 
-export default function Home() {
+export default async function Home() {
+  const transactions = await getTransactions('02', '2024');
+  console.log('Transactions:', transactions);
+
   return (
     <Container>
-      <Table />
+      Hello
     </Container>
   );
 }

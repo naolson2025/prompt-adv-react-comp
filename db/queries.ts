@@ -1,16 +1,25 @@
-import { getDbConnection } from "./db";
+import { getDbConnection } from './db';
 
-export type Product = {
+export type Transaction = {
   id: number;
-  name: string;
-  department: string;
-  isbn: string;
+  amount: string;
+  category: string;
   description: string;
-  price: string;
+  merchant: string;
+  date: string;
 };
 
-export const getProducts = async (limit = 1_000): Promise<Product[]> => {
+export const getTransactions = async (
+  month = '01',
+  year = '2024'
+): Promise<Transaction[]> => {
   const db = await getDbConnection();
-  const products = db.prepare('SELECT * FROM Products LIMIT ?').all(limit);
-  return products as Product[];
-}
+
+  const transactions = db
+    .prepare(
+      "SELECT * FROM Transactions WHERE strftime('%m', date) = @month AND strftime('%Y', date) = @year ORDER BY date DESC"
+    )
+    .all({ month, year });
+
+  return transactions as Transaction[];
+};
