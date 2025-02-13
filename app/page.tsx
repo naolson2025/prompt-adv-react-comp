@@ -1,14 +1,13 @@
 
+// import CardCarousel from '../components/card-carousel';
+// import QuoteCarousel from '../components/card-carousel-2';
 import { Container } from '../components/container';
-import { getTransactions } from '../db/queries';
+import CardCarousel from '../components/daisy-carousel';
 
 export default async function Home() {
-  const transactions = await getTransactions('02', '2024');
-  console.log('Transactions:', transactions);
-
   return (
     <Container>
-      Hello
+      <CardCarousel />
     </Container>
   );
 }
