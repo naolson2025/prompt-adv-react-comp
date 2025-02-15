@@ -14,7 +14,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-theme="nord">
+    <html lang="en">
       <body>
         <div className='flex flex-col min-h-screen'>
           <Navbar />
