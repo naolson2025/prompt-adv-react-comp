@@ -1,9 +1,9 @@
-import { Container } from '../components/container';
+'use client';
 
-export default async function Home() {
+export default function Home() {
   return (
-    <Container>
-      Hello
-    </Container>
+    <div className="flex flex-row justify-center p-10">
+      Hello Students!
+    </div>
   );
 }
